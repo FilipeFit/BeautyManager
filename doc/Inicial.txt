@@ -1,0 +1,14 @@
+Primeiro Projeto
+
+Autores:
+Filipe Torqueto
+Derik Fischer
+
+Beauty Manager
+
+GIT
+MySql
+Java
+JSF
+PrimeFaces
+MVC4
