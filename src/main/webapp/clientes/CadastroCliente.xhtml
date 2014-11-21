@@ -16,10 +16,9 @@
 				<p:commandButton value="Salvar" id="botaoSalvar" />
 			</p:toolbarGroup>
 			<p:toolbarGroup align="right">
-				<p:button value="Pesquisa" />
+				<p:button value="Pesquisa" outcome="/clientes/PesquisaClientes" />
 			</p:toolbarGroup>
 		</p:toolbar>
-
 
 		<h:form>
 			<p:panelGrid columns="2" id="painel"
@@ -53,10 +52,78 @@
 
 				<p:outputLabel value="E-mail" for="email" />
 				<p:inputText id="email" size="40" maxlength="40" />
-
 			</p:panelGrid>
-		</h:form>
+			<br />
+			<p:commandButton value="Adicionar Endereço" id="adicionarEndereco"
+				onclick="PF('inclusaoEnderecoDialog').show();" />
+			<br />
 
+			<p:dataTable id="enderecosTable"
+				value="#{pesquisaClientesBean.clientesFiltrados}" var="enderecos"
+				style="margin-top: 20px" emptyMessage="Nenhum endereço encontrado."
+				rows="20" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Logradouro" style="width: 250px">
+					<h:outputText value="Rua teste" />
+				</p:column>
+				<p:column headerText="Número" style="text-align:center; width: 40px">
+					<h:outputText value="12345" />
+				</p:column>
+				<p:column headerText="Complemento" style="width: 200px">
+					<h:outputText value="AP 11111" />
+				</p:column>
+				<p:column headerText="CEP" style="text-align: center; width: 120px">
+					<h:outputText value="13466-110" />
+				</p:column>
+				<p:column headerText="Cidade/UF" style="width: 180px">
+					<h:outputText value="Americana/SP" />
+				</p:column>
+				<p:column style="text-align: center; width: 100px">
+					<p:button icon="ui-icon-pencil" title="Editar" />
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()"/>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de Endereço" message="Realmente deseja excluir o Endereço?"
+				widgetVar="confirmacaoExclusao">
+				<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;"/>
+				<p:commandButton value="Sim" oncomplete="PF('confirmacaoExclusao').hide();"/>
+			</p:confirmDialog>			
+
+			<p:dialog header="Inclusão de Endereço"
+				widgetVar="inclusaoEnderecoDialog" modal="true" resizable="false">
+				<h:panelGroup id="inclusaoPanel">
+					<p:messages />
+
+					<p:panelGrid columns="2" id="painelEndereco"
+						style="width: 100%; margin-top: 20px;"
+						columnClasses="rotulo, campo">
+						<p:outputLabel value="Logradouro" for="logradouro" />
+						<p:inputText id="logradouro" size="50" maxlength="80" />
+
+						<p:outputLabel value="Numero" for="numero" />
+						<p:inputText id="numero" size="15" maxlength="20" />
+
+						<p:outputLabel value="Complemento" for="complemento" />
+						<p:inputText id="complemento" size="45" maxlength="40" />
+
+						<p:outputLabel value="CEP" for="cep" />
+						<p:inputText id="cep" size="25" maxlength="30" />
+
+						<h:panelGroup>
+							<p:outputLabel value="Cidade" for="cidade" />
+							<p:inputText id="cidade" size="45" maxlength="40" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:outputLabel value="UF" for="uf" />
+							<p:inputText id="uf" size="7" maxlength="10" />
+						</h:panelGroup>
+
+					</p:panelGrid>
+				</h:panelGroup>
+			</p:dialog>
+		</h:form>
 
 	</ui:define>
 </ui:composition>

@@ -16,7 +16,7 @@
 				<p:commandButton value="Salvar" id="botaoSalvar" />
 			</p:toolbarGroup>
 			<p:toolbarGroup align="right">
-				<p:button value="Pesquisa" />
+				<p:button value="Pesquisa" outcome="/usuarios/PesquisaUsuarios" />
 			</p:toolbarGroup>
 		</p:toolbar>
 
@@ -32,13 +32,46 @@
 
 				<p:outputLabel value="Senha" for="senha" />
 				<p:password id="senha" size="20" maxlength="20" feedback="true"
-				weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" promptLabel="Informe sua senha"
-				inline="true" required="true" match="confirmarSenha"/>
+					weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte"
+					promptLabel="Informe sua senha" inline="true" required="true"
+					match="confirmarSenha" />
 
 				<p:outputLabel value="Confirmar senha" for="confirmarSenha" />
-				<p:password id="confirmarSenha" size="20" maxlength="20" required="true" />
+				<p:password id="confirmarSenha" size="20" maxlength="20"
+					required="true" />
 
 			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="grupoUsuario"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				<p:selectOneMenu id="grupoUsuário" style="width: 180px">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItem itemLabel="Administrador" />
+				</p:selectOneMenu>
+
+				<p:commandButton value="Adicionar Grupo" />
+			</p:panelGrid>
+
+			<p:dataTable id="grupoUsuarioTable"
+				value="#{pesquisaUsuariosBean.usuariosFiltrados}" var="grupoUsuario"
+				style="margin-top: 20px" emptyMessage="Nenhum grupo encontrado."
+				rows="20" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Grupo" style="width: 700px">
+					<h:outputText value="123" />
+				</p:column>
+				<p:column style="text-align: center; width: 100px">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()"/>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de grupo" message="Realmente deseja excluir o Grupo?"
+				widgetVar="confirmacaoExclusao">
+				<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;"/>
+				<p:commandButton value="Sim" oncomplete="PF('confirmacaoExclusao').hide();"/>
+			</p:confirmDialog>			
+
 		</h:form>
 
 

@@ -29,20 +29,20 @@ footer {
 	margin-bottom: 10px
 }
 
-h1{
+h1 {
 	font-size: 24px;
 	font-weight: 500;
 	padding: 0px;
 	margin: 0px;
 }
 
-#login-dialog{
-	width:290px;
+#login-dialog {
+	width: 290px;
 	margin: auto;
 	margin-top: 150px;
 }
 
-.grid-login{
+.grid-login {
 	background-color: #f2f2f2;
 	border-radius: 8px;
 	border: 1px solid #ccc;
@@ -50,15 +50,15 @@ h1{
 	padding: 12px
 }
 
-.rotulo{
+.rotulo {
 	width: 150px;
 }
 
-.ui-panelgrid td{
+.ui-panelgrid td {
 	height: 34px;
 }
 
-.ajax-status{
+.ajax-status {
 	position: fixed;
 	top: 65px;
 	right: 10px;
@@ -66,6 +66,41 @@ h1{
 	height: 35px;
 }
 
-.sem-bordas{
+.sem-bordas {
 	border: none;
 }
+
+.produto-tabela input {
+	width: 310%;
+}
+
+/* Customiza TabView - início */
+.ui-tabs .ui-tabs-panel {
+	padding: 0.5em 0.2em;
+}
+
+.ui-tabs {
+	padding: 0px;
+}
+
+.ui-tabs .ui-tabs-nav {
+	margin: -1px;
+}
+
+.ui-tabs.ui-tabs-top>.ui-tabs-nav {
+	padding: 0px;
+}
+/* Menu sistema inicio */
+.menu-sistema {
+	border: 0px;
+	padding: 0px;
+	background: none;
+}
+
+/* Customiza Menu Bar - início */
+.menu-sistema .ui-menu-parent>a .ui-menuitem-text, .menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text
+	{
+	color: #400040;
+}
+
+/* Menu sistema fim */
