@@ -1,13 +1,18 @@
 package br.com.BeautyManager.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
-@ManagedBean
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
+@Named
 @RequestScoped
-public class PesquisaClientesBean {
+public class PesquisaClientesBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
 	private List<Integer> clientesFiltrados;
 
 	public PesquisaClientesBean() {

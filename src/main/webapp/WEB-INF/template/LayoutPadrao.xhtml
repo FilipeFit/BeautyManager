@@ -14,7 +14,7 @@
 <h:body>
 	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
 		<f:facet name="start">
-			<h:graphicImage library="images" name="loading.gif" />
+			<h:graphicImage library="images" name="/loading.gif" />
 		</f:facet>
 		<f:facet name="complete">
 			<h:outputText value="" />
@@ -40,11 +40,12 @@
 					<p:menuitem value="Usuários" outcome="/usuarios/CadastroUsuario"/>
 					<p:separator />
 					<p:menuitem value="Categorias"/>
-					<p:menuitem value="Produtos" outcome="/produtos/PesquisaProdutos"/>
+					<p:menuitem value="Produtos" outcome="/produtos/CadastroProduto"/>
 				</p:submenu>
 				<p:submenu label="Pesquisas">
 					<p:menuitem value="Clientes" outcome="/clientes/PesquisaClientes"/>
-					<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios"/>				
+					<p:menuitem value="Usuários" outcome="/usuarios/PesquisaUsuarios"/>
+					<p:menuitem value="Produtos" outcome="/produtos/PesquisaProdutos"/>				
 				</p:submenu>
 				<p:submenu label="Pedidos">
 					<p:menuitem value="Novo Pedido" outcome="/pedidos/CadastroPedido"/>
