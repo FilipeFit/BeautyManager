@@ -3,15 +3,36 @@ package br.com.BeautyManager.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tb_produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable=false,length=150)
 	private String nome;
+	@Column(nullable=false,length=150,unique=true)
 	private String sku;
+	// Precision é a quantidade total de casas no banco
+	// Scale define a quantidade de casas decimais no banco
+	@Column(nullable=false,precision=10,scale=2)
 	private BigDecimal valorUnitario;
+	@Column(nullable=false,length=10)
 	private Integer quantidadeEstoque;
+	@ManyToOne
+	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
 
 	public Long getId() {
