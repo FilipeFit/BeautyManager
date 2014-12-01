@@ -8,33 +8,37 @@
 	<ui:define name="titulo">Novo Usuários</ui:define>
 
 	<ui:define name="corpo">
-		<h1>Novo Usuário</h1>
-
-		<p:toolbar style="margin-top: 20px">
-			<p:toolbarGroup>
-				<p:button value="Novo" outcome="/usuarios/CadastroUsuario" />
-				<p:commandButton value="Salvar" id="botaoSalvar" />
-			</p:toolbarGroup>
-			<p:toolbarGroup align="right">
-				<p:button value="Pesquisa" outcome="/usuarios/PesquisaUsuarios" />
-			</p:toolbarGroup>
-		</p:toolbar>
-
 		<h:form>
+			<h1>Novo Usuário</h1>
+			<p:messages autoUpdate="true" closable="true" />
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/usuarios/CadastroUsuario" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroUsuarioBean.salvar}" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/usuarios/PesquisaUsuarios" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+
 			<p:panelGrid columns="2" id="painel"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Nome" for="nome" />
-				<p:inputText id="nome" size="60" maxlength="80" required="true" />
+				<p:inputText id="nome" size="60" maxlength="80" required="true"
+					value="#{cadastroUsuarioBean.usuario.nome}" />
 
 				<p:outputLabel value="E-mail" for="email" />
-				<p:inputText id="email" size="60" maxlength="80" required="true" />
+				<p:inputText id="email" size="60" maxlength="80" required="true"
+					value="#{cadastroUsuarioBean.usuario.email}" />
 
 				<p:outputLabel value="Senha" for="senha" />
 				<p:password id="senha" size="20" maxlength="20" feedback="true"
 					weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte"
 					promptLabel="Informe sua senha" inline="true" required="true"
-					match="confirmarSenha" />
+					match="confirmarSenha" value="#{cadastroUsuarioBean.usuario.senha}" />
 
 				<p:outputLabel value="Confirmar senha" for="confirmarSenha" />
 				<p:password id="confirmarSenha" size="20" maxlength="20"
@@ -44,7 +48,8 @@
 
 			<p:panelGrid columns="2" id="grupoUsuario"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
-				<p:selectOneMenu id="grupoUsuário" style="width: 180px">
+				<p:selectOneMenu id="grupoUsuário" style="width: 180px"
+					value="#{cadastroUsuarioBean.usuario.grupos}">
 					<f:selectItem itemLabel="Selecione" />
 					<f:selectItem itemLabel="Administrador" />
 				</p:selectOneMenu>
@@ -62,15 +67,19 @@
 					<h:outputText value="123" />
 				</p:column>
 				<p:column style="text-align: center; width: 100px">
-					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show()"/>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="PF('confirmacaoExclusao').show()" />
 				</p:column>
 			</p:dataTable>
-			
-			<p:confirmDialog header="Exclusão de grupo" message="Realmente deseja excluir o Grupo?"
+
+			<p:confirmDialog header="Exclusão de grupo"
+				message="Realmente deseja excluir o Grupo?"
 				widgetVar="confirmacaoExclusao">
-				<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;"/>
-				<p:commandButton value="Sim" oncomplete="PF('confirmacaoExclusao').hide();"/>
-			</p:confirmDialog>			
+				<p:button value="Não"
+					onclick="PF('confirmacaoExclusao').hide(); return false;" />
+				<p:commandButton value="Sim"
+					oncomplete="PF('confirmacaoExclusao').hide();" />
+			</p:confirmDialog>
 
 		</h:form>
 

@@ -11,6 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import br.com.BeautyManager.validation.SKU;
 
 @Entity
 @Table(name="tb_produto")
@@ -21,16 +30,26 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank @Size(max = 150)
 	@Column(nullable=false,length=150)
 	private String nome;
+	
+	@NotBlank @SKU
 	@Column(nullable=false,length=150,unique=true)
 	private String sku;
 	// Precision é a quantidade total de casas no banco
 	// Scale define a quantidade de casas decimais no banco
+	@NotNull
 	@Column(nullable=false,precision=10,scale=2)
 	private BigDecimal valorUnitario;
+	
+	// Não posso incluir esse atributo nulo
+	@NotNull(message = "é obrigatório") 
+	@Min(0) @Max(value =9999, message = "tem um valor muito alto")
 	@Column(nullable=false,length=10)
 	private Integer quantidadeEstoque;
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;

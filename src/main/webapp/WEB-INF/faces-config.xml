@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-    version="2.2">
-    
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+
+	<application>
+		<!-- Define outro padrão de mensagem de erro que incli o label antes do erro -->
+		<message-bundle>br.com.BeautyManager.Messages</message-bundle>
+		<locale-config>
+			<!-- Define que o padrão da aplicação é português -->
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+	</application>
+
 	<factory>
 		<exception-handler-factory>
-			br.com.BeautyManager.util.jsf.JsfExceptionHandlerFactory
-		</exception-handler-factory>
+			br.com.BeautyManager.util.jsf.JsfExceptionHandlerFactory</exception-handler-factory>
 	</factory>
-    
 
 </faces-config>

@@ -24,8 +24,8 @@ public class TestePedido {
 		EntityManager manager = factory.createEntityManager();
 		EntityTransaction trx = manager.getTransaction();
 		trx.begin();
-		Cliente cliente = manager.find(Cliente.class, 1L);
-		Produto produto = manager.find(Produto.class, 1L);
+		Cliente cliente = manager.find(Cliente.class, new Long(1));
+		Produto produto = manager.find(Produto.class, new Long(1));
 		Usuario vendedor = manager.find(Usuario.class, new Long(1));
 		EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
 		enderecoEntrega.setLogradouro("Rua dos Mercados");

@@ -13,6 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="tb_usuario")
@@ -23,12 +28,20 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank @Size(max = 150)
 	@Column(nullable=false, length=150)
 	private String nome;
+	
+	@NotBlank @Size(max = 150)
 	@Column(nullable=false, length=150,unique=true)
 	private String email;
+	
+	@NotBlank @Size(max = 150)
 	@Column(nullable=false, length=30)
 	private String senha;
+	
+	@NotNull
 	@ManyToMany
 	// Define o relacionamento muitos para muitos e sua tabela de relacionamento
 	@JoinTable(name="tb_usuario_grupo", joinColumns=@JoinColumn(name="usuario_id"),
