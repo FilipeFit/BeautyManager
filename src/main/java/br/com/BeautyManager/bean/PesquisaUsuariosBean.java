@@ -1,25 +1,65 @@
 package br.com.BeautyManager.bean;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-@ManagedBean
-@RequestScoped
-public class PesquisaUsuariosBean {
+import br.com.BeautyManager.model.Usuario;
+import br.com.BeautyManager.repository.Usuarios;
+import br.com.BeautyManager.repository.filter.UsuarioFilter;
+import br.com.BeautyManager.util.jsf.FacesUtil;
 
-	private List<Integer> usuariosFiltrados;
+@Named
+@ViewScoped
+public class PesquisaUsuariosBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private Usuarios usuarios;
+
+	private Usuario usuarioSelecionado;
+	private UsuarioFilter filtro;
+	private List<Usuario> usuariosFiltrados;
+
+	public void excluir() {
+
+		usuarios.remover(usuarioSelecionado);
+		usuariosFiltrados.remove(usuarioSelecionado);
+
+		FacesUtil.addInfoMessage("Usuário " + usuarioSelecionado.getNome()
+				+ " excluído com sucesso.");
+	}
 
 	public PesquisaUsuariosBean() {
-		usuariosFiltrados = new ArrayList<>();
-		for (int i = 0; i < 50; i++) {
-			usuariosFiltrados.add(i);
-		}
+		filtro = new UsuarioFilter();
 	}
 
-	public List<Integer> getUsuariosFiltrados() {
+	public void pesquisar() {
+		usuariosFiltrados = usuarios.filtrados(filtro);
+	}
+
+	public Usuarios getUsuarios() {
+		return usuarios;
+	}
+
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
+	}
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+		this.usuarioSelecionado = usuarioSelecionado;
+	}
+
+	public UsuarioFilter getFiltro() {
+		return filtro;
+	}
+
+	public List<Usuario> getUsuariosFiltrados() {
 		return usuariosFiltrados;
 	}
+
 }

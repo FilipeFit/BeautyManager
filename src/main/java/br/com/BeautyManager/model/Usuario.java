@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -48,6 +47,37 @@ public class Usuario implements Serializable {
 	inverseJoinColumns=@JoinColumn(name="grupo_id")) 
 	private List<Grupo> grupos = new ArrayList<>();
 
+	/**
+	 * Método que inclui um grupo de usuário
+	 * @param grupo grupo a ser incluído no usuário
+	 */
+	public void adicionaGrupo(Grupo grupo) {
+		this.grupos.add(grupo);
+		
+	}	
+	
+	/**
+	 * Método que reve um grupo da lista de um usuário
+	 * @param grupo para ser removido da lista do usuario
+	 */
+	public void removeGrupo(Grupo grupo){
+		this.grupos.remove(grupo);
+	}
+	
+	/** 
+	 * Método que verifica dado um grupo se ele já existe na lista para não ficar duplicado
+	 * @param grupo
+	 * @return retorna true ou false caso o grupo já esteja cadastradp
+	 */
+	public boolean verificaGrupo(Grupo grupo){
+		for (Grupo grupoCadastrado : grupos) {
+			if (grupo.getId() == grupoCadastrado.getId()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Long getId() {
 		return id;
 	}

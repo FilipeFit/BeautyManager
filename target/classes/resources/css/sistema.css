@@ -1,0 +1,106 @@
+@charset "utf-8";
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+}
+
+header {
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	height: 45px;
+	background-color: #ffd2ff;
+	color: #fff;
+	box-shadow: 0px 2px 2px #ccc;
+}
+
+header>div {
+	margin-left: 8px
+}
+
+#conteudo {
+	padding: 0px 8px
+}
+
+footer {
+	padding: 0px 8px;
+	margin-bottom: 10px
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px;
+}
+
+#login-dialog {
+	width: 290px;
+	margin: auto;
+	margin-top: 150px;
+}
+
+.grid-login {
+	background-color: #f2f2f2;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	margin-top: 8px;
+	padding: 12px
+}
+
+.rotulo {
+	width: 150px;
+}
+
+.ui-panelgrid td {
+	height: 34px;
+}
+
+.ajax-status {
+	position: fixed;
+	top: 65px;
+	right: 10px;
+	width: 35px;
+	height: 35px;
+}
+
+.sem-bordas {
+	border: none;
+}
+
+.produto-tabela input {
+	width: 310%;
+}
+
+/* Customiza TabView - início */
+.ui-tabs .ui-tabs-panel {
+	padding: 0.5em 0.2em;
+}
+
+.ui-tabs {
+	padding: 0px;
+}
+
+.ui-tabs .ui-tabs-nav {
+	margin: -1px;
+}
+
+.ui-tabs.ui-tabs-top>.ui-tabs-nav {
+	padding: 0px;
+}
+/* Menu sistema inicio */
+.menu-sistema {
+	border: 0px;
+	padding: 0px;
+	background: none;
+}
+
+/* Customiza Menu Bar - início */
+.menu-sistema .ui-menu-parent>a .ui-menuitem-text, .menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text
+	{
+	color: #400040;
+}
+
+/* Menu sistema fim */

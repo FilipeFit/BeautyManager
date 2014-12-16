@@ -16,8 +16,20 @@ public class Categorias implements Serializable{
 	@Inject
 	private EntityManager manager;
 	
+	public Categoria porId(Long id){
+		// Busco a categoria por ID
+		return manager.find(Categoria.class, id);
+	}
+	
 	public List<Categoria> raizes(){
-		return manager.createQuery("from Categoria", Categoria.class).getResultList();
+		return manager.createQuery("from Categoria where categoriaPai is null", Categoria.class).getResultList();
+	}
+	
+	public List<Categoria> subCategoriasDe(Categoria categoriaPai){
+		return manager.createQuery("from Categoria where categoriaPai = :raiz", 
+				Categoria.class)
+				.setParameter("raiz", categoriaPai)
+				.getResultList();
 	}
 
 }

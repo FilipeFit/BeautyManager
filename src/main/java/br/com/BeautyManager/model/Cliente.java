@@ -56,6 +56,10 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
+	public void adicionaEndereco(Endereco endereco) {
+		this.enderecos.add(endereco);
+	}		
+	
 	public Long getId() {
 		return id;
 	}
