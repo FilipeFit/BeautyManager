@@ -81,4 +81,13 @@ public class Produtos implements Serializable {
 		// Busco um produto a partir de um id
 		return manager.find(Produto.class, id);
 	}
+
+	/**
+	 * @param nome do produto a ser pesquisado
+	 * @return retorna uma lista de produtos com o nome informado
+	 */
+	public List<Produto> porNome(String nome) {
+		return this.manager.createQuery("from Produto where upper(nome) like :nome",Produto.class)
+				.setParameter("nome", nome.toUpperCase() + "%").getResultList();
+	}
 }

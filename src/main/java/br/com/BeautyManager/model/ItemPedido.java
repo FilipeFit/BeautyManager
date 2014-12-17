@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_item_pedido")
@@ -22,15 +23,50 @@ public class ItemPedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable = false, length = 3)
-	private Integer quantidade;
+	private Integer quantidade = 1;
 	@Column(name = "valor_unitario", nullable = false, length = 3, precision = 10, scale = 2)
-	private BigDecimal valorUnitario;
+	private BigDecimal valorUnitario = BigDecimal.ZERO;
 	@ManyToOne
 	@JoinColumn(name = "produto_id", nullable = false)
 	private Produto produto;
 	@ManyToOne
 	@JoinColumn(name = "pedido_id", nullable = false)
 	private Pedido pedido;
+
+	/**
+	 * @return Retorna o valor total para um pedido ou seja o valor unitário
+	 *         multiplicado pela quantidade
+	 */
+	@Transient
+	public BigDecimal getValorTotal() {
+		return this.getValorUnitario().multiply(
+				new BigDecimal(this.getQuantidade()));
+	}
+
+	@Transient
+	public boolean isprodutoAssociado() {
+		return this.getProduto() != null && this.getProduto().getId() != null;
+	}
+
+	/**
+	 * @return Método que retorna se existe estoque para o pedido
+	 */
+	@Transient
+	public boolean isestoqueSuficiente() {
+		return this.getPedido().isEmitido()
+				|| this.getProduto().getId() == null
+				|| this.getProduto().getQuantidadeEstoque() >= this
+						.getQuantidade();
+	}
+
+	/**
+	 * @return Método que retorna true caso não tenha quantidade suficiente em
+	 *         estoque
+	 */
+	@Transient
+	public boolean isestoqueInsuficiente() {
+		return !isestoqueSuficiente();
+	}
 
 	public Long getId() {
 		return id;

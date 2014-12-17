@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.com.BeautyManager.bean.service.NegocioException;
 import br.com.BeautyManager.validation.SKU;
 
 @Entity
@@ -53,6 +54,32 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
 
+	/**
+	 * Método que faz a baixa de produtos em estoque
+	 * @param quantidade a ser baixada do estoque
+	 */
+	public void baixaEstoque(Integer quantidade) {
+		// Faço o calculo da nova quantidade
+		int novaQuantidade = this.getQuantidadeEstoque() - quantidade;
+		
+		if(novaQuantidade < 0 ){
+			throw new NegocioException("Não há disponibilidade de estoque de " 
+					+ quantidade + " itens no produto " + this.getSku() + ".");
+		}
+		
+		// Faço o set da nova quantidade
+		this.setQuantidadeEstoque(novaQuantidade);
+	}	
+	
+	/**
+	 * Método que retorna a quantidade de estoque que foi retirado
+	 * @param quantidade a ser devolvida quando o pedido está sendo cancelado
+	 */
+	public void adicionaEstoque(Integer quantidade) {
+		this.setQuantidadeEstoque(getQuantidadeEstoque() + quantidade);
+		
+	}	
+	
 	public Long getId() {
 		return id;
 	}

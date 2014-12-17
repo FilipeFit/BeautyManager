@@ -67,7 +67,20 @@ public class Usuarios implements Serializable {
 		// Busco um produto a partir de um id
 		return manager.find(Usuario.class, id);
 	}
+	
+	/**
+	 * @return Retorna uma lista de usuários (que são vendedores no caso de cadastro de pedidos) 
+	 */
+	public List<Usuario> vendedores() {
+		// TODO filtrar apenas vendedores (por um grupo específico)
+		return this.manager.createQuery("from Usuario", Usuario.class)
+		.getResultList();
+		}	
 
+	/**
+	 * Método que remove um usuário 
+	 * @param usuario a ser removido
+	 */
 	@Transactional
 	public void remover(Usuario usuario) {
 		try {

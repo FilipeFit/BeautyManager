@@ -1,7 +1,6 @@
 package br.com.BeautyManager.test;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -35,8 +34,8 @@ public class TestePedido {
 		enderecoEntrega.setCep("38400-123");
 		Pedido pedido = new Pedido();
 		pedido.setCliente(cliente);
-		pedido.setDataCriacao(Calendar.getInstance());
-		pedido.setDataEntrega(Calendar.getInstance());
+		//pedido.setDataCriacao(Date.valueOf());
+		//pedido.setDataEntrega(Calendar.getInstance());
 		pedido.setFormaPagamento(FormaPagamento.CARTAO_CREDITO);
 		pedido.setObservacao("Aberto das 08 às 18h");
 		pedido.setStatus(StatusPedido.ORCAMENTO);

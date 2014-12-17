@@ -48,6 +48,20 @@ public class Clientes implements Serializable {
 
 	}
 
+	public List<Cliente> porNome(String nome) {
+		return this.manager
+				.createQuery("from Cliente " + "where upper(nome) like :nome",
+						Cliente.class)
+				.setParameter("nome", nome.toUpperCase() + "%").getResultList();
+	}
+
+	/**
+	 * Retorna o cliente a partir do ID
+	 * 
+	 * @param id
+	 *            do cliente
+	 * @return
+	 */
 	public Cliente porId(Long id) {
 		// Busco um produto a partir de um id
 		return manager.find(Cliente.class, id);
@@ -76,7 +90,8 @@ public class Clientes implements Serializable {
 	/**
 	 * Método que persiste um cliente na Base de dados
 	 * 
-	 * @param cliente Cliente a ser persistido na base de dados
+	 * @param cliente
+	 *            Cliente a ser persistido na base de dados
 	 */
 	public Cliente guardar(Cliente cliente) {
 		return cliente = manager.merge(cliente);
@@ -84,7 +99,9 @@ public class Clientes implements Serializable {
 
 	/**
 	 * Método que remove um cliente da base de dados
-	 * @param cliente a ser removido
+	 * 
+	 * @param cliente
+	 *            a ser removido
 	 */
 	public void remover(Cliente cliente) {
 		try {
