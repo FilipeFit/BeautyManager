@@ -137,6 +137,7 @@ public class Pedido implements Serializable {
 	/**
 	 * Adiociona um Item vazio dentro do pedido
 	 */
+	@Transient
 	public void adiconarItemVazio() {
 		// Não posso alterar um pedido diferente de Orçamento
 		if (this.isOrcamento()) {
@@ -154,6 +155,7 @@ public class Pedido implements Serializable {
 	 * Remove a primeira linha na hora de salvar os itens do pedido pois o
 	 * primeiro item está sempre vazio
 	 */
+	@Transient
 	public void removerItemVazio() {
 		ItemPedido primeiroItem = this.getItens().get(0);
 
@@ -166,6 +168,7 @@ public class Pedido implements Serializable {
 	/**
 	 * @return Método que retorna true caso o valor total do pedido seja menor que 0
 	 */
+	@Transient
 	public boolean isValorTotalNegativo() {
 		return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
 	}
@@ -217,6 +220,23 @@ public class Pedido implements Serializable {
 	@Transient
 	private boolean isCancelado() {
 		return StatusPedido.CANCELADO.equals(this.getStatus());
+	}
+	
+	/**
+	 * @return Método que retorna true se o pedido não pode ser alterado
+	 */
+	@Transient
+	public boolean isNaoAlteravel() {
+		return !this.isAlteravel();
+	}	
+
+	/**
+	 * @return Método que retorna true se o pedido pode ser alterado
+	 */
+	@Transient
+	private boolean isAlteravel() {
+		// O pedido só é alteravel caso esteja em status de orçamento
+		return this.isOrcamento();
 	}
 
 	public Long getId() {

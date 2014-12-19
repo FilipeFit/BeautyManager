@@ -103,4 +103,8 @@ h1 {
 	color: #400040;
 }
 
+.ui-state-disable{
+	opacity .80 !important;
+}
+
 /* Menu sistema fim */

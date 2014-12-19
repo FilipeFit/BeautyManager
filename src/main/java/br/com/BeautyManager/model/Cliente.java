@@ -53,12 +53,8 @@ public class Cliente implements Serializable {
 	// Mapeamento Bidirecional entre a entidade cliente e endereço
 	// O atributo Cascade Type All diz que o endereço vai ser persistido
 	// juntamente com o Cliente
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-	private List<Endereco> enderecos = new ArrayList<>();
-
-	public void adicionaEndereco(Endereco endereco) {
-		this.enderecos.add(endereco);
-	}		
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Endereco> enderecos = new ArrayList<>();	
 	
 	public Long getId() {
 		return id;

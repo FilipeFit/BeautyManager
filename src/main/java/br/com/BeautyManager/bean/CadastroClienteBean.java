@@ -1,7 +1,6 @@
 package br.com.BeautyManager.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -23,45 +22,25 @@ public class CadastroClienteBean implements Serializable {
 	private CadastroClienteService cadastroCLienteService;
 
 	private Cliente cliente;
-	private Endereco enderecoCliente;
-	private List<Endereco> enderecosCadastrados;
+
+	private Endereco novoEndereco;
+	private Endereco enderecoSelecionado;
 
 	public Cliente getCliente() {
 		return cliente;
 	}
 
 	public CadastroClienteBean() {
+		limpar();
+	}
 
+	public void inicializar() {
+	}
+
+	public void limpar() {
 		cliente = new Cliente();
 		this.cliente.setTipo(TipoPessoa.FISICA);
-	}
-
-	/**
-	 * Inicializa um endereco quando o dialog de cadastro de endereços é aberto
-	 */
-	public void iniciaEnderecos() {
-		this.enderecoCliente = new Endereco();
-	}
-
-	/**
-	 * Inclui o endereço cadastrado na lista para ser gravado
-	 */
-	public void adicionaEndereco() {
-
-		// Verifico se o endereco já possui um cliente associado
-		if (enderecoCliente.getCliente().getId() == null) {
-			// Endereco não possui cliente portanto é um endereço novo caso
-			// contrario é uma edição de endereço
-			enderecoCliente.setCliente(cliente);
-			cliente.adicionaEndereco(this.enderecoCliente);
-		} else {	
-			for (Endereco endereco : cliente.getEnderecos()) {
-				if (endereco.getId() == enderecoCliente.getId()){
-					endereco.atualizaEndereco(enderecoCliente);
-				}
-			}
-		}
-
+		novoEndereco = new Endereco();
 	}
 
 	public void salvar() {
@@ -70,6 +49,49 @@ public class CadastroClienteBean implements Serializable {
 		cliente = new Cliente();
 		FacesUtil.addInfoMessage("Cliente salvo com sucesso!");
 
+	}
+
+	public void adicionarEndereco() {
+
+		if (this.novoEndereco != null) {
+
+			if (this.novoEndereco.getCliente() == null) {
+				// Ainda não tenho cliente associado ao endereço então faço um
+				// inclusão
+				this.novoEndereco.setCliente(cliente);
+
+				this.cliente.getEnderecos().add(this.novoEndereco);
+
+				this.novoEndereco = new Endereco();
+			} else {
+				// Percorro todos os endereços para ver se tenho um igual
+				for (Endereco endereco : this.cliente.getEnderecos()) {
+					if (this.novoEndereco.equals(endereco)) {
+						int index = this.cliente.getEnderecos().indexOf(
+								endereco);
+						if (index != -1) {
+							this.cliente.getEnderecos()
+									.set(index, novoEndereco);
+							FacesUtil
+									.addInfoMessage("Endereço alterado com sucesso.");
+						}
+					}
+					this.novoEndereco = new Endereco();
+				}
+			}
+		}
+	}
+
+	public void removeEndereco() {
+
+		if (enderecoSelecionado.getId() != null) {
+			this.getCliente().getEnderecos().remove(enderecoSelecionado);
+			FacesUtil.addInfoMessage("Endereço removido com sucesso.");
+		}
+	}
+
+	public boolean isEditando() {
+		return this.cliente.getId() != null;
 	}
 
 	public CadastroClienteService getCadastroCLienteService() {
@@ -85,20 +107,20 @@ public class CadastroClienteBean implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public Endereco getEnderecoCliente() {
-		return enderecoCliente;
+	public Endereco getNovoEndereco() {
+		return novoEndereco;
 	}
 
-	public void setEnderecoCliente(Endereco enderecoCliente) {
-		this.enderecoCliente = enderecoCliente;
+	public void setNovoEndereco(Endereco novoEndereco) {
+		this.novoEndereco = novoEndereco;
 	}
 
-	public List<Endereco> getEnderecosCadastrados() {
-		return enderecosCadastrados;
+	public Endereco getEnderecoSelecionado() {
+		return enderecoSelecionado;
 	}
 
-	public void setEnderecosCadastrados(List<Endereco> enderecosCadastrados) {
-		this.enderecosCadastrados = enderecosCadastrados;
+	public void setEnderecoSelecionado(Endereco enderecoSelecionado) {
+		this.enderecoSelecionado = enderecoSelecionado;
 	}
 
 }

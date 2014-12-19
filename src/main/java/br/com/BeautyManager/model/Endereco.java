@@ -37,15 +37,6 @@ public class Endereco implements Serializable {
 	// Quando temos um join não usamos a propriedade column e sim Join Column
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
-	
-	public void atualizaEndereco(Endereco endereco){
-		this.setCep(endereco.getCep());
-		this.setCidade(endereco.getCidade());
-		this.setComplemento(endereco.getComplemento());
-		this.setLogradouro(endereco.getLogradouro());
-		this.setNumero(endereco.getNumero());
-		this.setUf(endereco.getUf());
-	}
 
 	public Long getId() {
 		return id;
@@ -122,7 +113,7 @@ public class Endereco implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
-			return true;
+			return false;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
@@ -132,7 +123,7 @@ public class Endereco implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
+			return true;
 		return true;
 	}
 
